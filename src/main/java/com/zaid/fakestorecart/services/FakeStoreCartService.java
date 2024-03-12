@@ -37,4 +37,24 @@ public class FakeStoreCartService {
 
         return Arrays.stream(carts).toList();
     }
+
+    public Cart addCart(Cart cart) {
+
+        return restTemplate.postForObject(
+                "https://fakestoreapi.com/carts",
+                cart,
+                Cart.class
+        );
+    }
+
+    public Cart updateCart(Long id, Cart cart) {
+        restTemplate.put("https://fakestoreapi.com/carts/" + id,
+                cart, Cart.class);
+        return getCart(id);
+    }
+
+    public Cart deleteCart(Long id) {
+        restTemplate.delete("https://fakestoreapi.com/carts/" + id);
+        return getCart(id);
+    }
 }
